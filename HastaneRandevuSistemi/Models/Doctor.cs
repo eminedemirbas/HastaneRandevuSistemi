@@ -8,12 +8,13 @@ public class Doctor : User
 
     public Clinic Clinic { get; set; } = null!;
 
-    public ICollection<Appointment> Appointments { get; set; }
-        = new List<Appointment>();
+    public int DepartmentId { get; set; }
 
-    public ICollection<DoctorAvailability> AvailabilitySlots { get; set; }
-        = new List<DoctorAvailability>();
+    public Department Department { get; set; } = null!;
 
-    public ICollection<MedicalService> Services { get; set; }
-        = new List<MedicalService>();
+    public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
+
+    public ICollection<DoctorAvailability> AvailabilitySlots { get; set; } = new List<DoctorAvailability>();
+
+    public ICollection<MedicalService> Services { get; set; } = new List<MedicalService>();
 }

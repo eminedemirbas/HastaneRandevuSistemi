@@ -14,9 +14,11 @@ public class Clinic
 
     public Hospital Hospital { get; set; } = null!;
 
-    public ICollection<Doctor> Doctors { get; set; }
-        = new List<Doctor>();
+    public ICollection<Department> Departments { get; set; } = new List<Department>();
 
-    public ICollection<MedicalService> Services { get; set; }
-        = new List<MedicalService>();
+    public ICollection<Doctor> Doctors { get; set; } = new List<Doctor>();
+
+    public ICollection<Staff> StaffMembers { get; set; } = new List<Staff>();
+
+    public ICollection<MedicalService> Services { get; set; } = new List<MedicalService>();
 }
