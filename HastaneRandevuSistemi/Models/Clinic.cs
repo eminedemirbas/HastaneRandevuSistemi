@@ -1,24 +1,23 @@
-namespace HastaneRandevuSistemi.Models;
+using System.ComponentModel.DataAnnotations;
 
 public class Clinic
 {
     public int Id { get; set; }
+    [Required, MaxLength(100)]
+    public string Name { get; set; } // Klinik Adı
+    public string WorkingHours { get; set; } // Çalışma Saatleri
+    
+    public ICollection<Department> Departments { get; set; }
+    public ICollection<Doctor> Doctors { get; set; }
+}
 
-    public string Name { get; set; } = string.Empty;
-
-    public TimeSpan OpeningTime { get; set; }
-
-    public TimeSpan ClosingTime { get; set; }
-
-    public int HospitalId { get; set; }
-
-    public Hospital Hospital { get; set; } = null!;
-
-    public ICollection<Department> Departments { get; set; } = new List<Department>();
-
-    public ICollection<Doctor> Doctors { get; set; } = new List<Doctor>();
-
-    public ICollection<Staff> StaffMembers { get; set; } = new List<Staff>();
-
-    public ICollection<MedicalService> Services { get; set; } = new List<MedicalService>();
+public class Department
+{
+    public int Id { get; set; }
+    [Required, MaxLength(100)]
+    public string Name { get; set; } // Bölüm Adı
+    
+    public int ClinicId { get; set; }
+    public Clinic Clinic { get; set; }
+    public ICollection<Doctor> Doctors { get; set; }
 }

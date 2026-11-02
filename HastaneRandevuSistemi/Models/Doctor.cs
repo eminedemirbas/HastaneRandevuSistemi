@@ -1,20 +1,18 @@
-namespace HastaneRandevuSistemi.Models;
-
-public class Doctor : User
+public class Doctor
 {
-    public string Specialty { get; set; } = string.Empty;
-
+    public int Id { get; set; }
+    [Required]
+    public string UserId { get; set; } 
+    [Required, MaxLength(100)]
+    public string FullName { get; set; }
+    
     public int ClinicId { get; set; }
-
-    public Clinic Clinic { get; set; } = null!;
-
+    public Clinic Clinic { get; set; }
+    
     public int DepartmentId { get; set; }
-
-    public Department Department { get; set; } = null!;
-
-    public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
-
-    public ICollection<DoctorAvailability> AvailabilitySlots { get; set; } = new List<DoctorAvailability>();
-
-    public ICollection<MedicalService> Services { get; set; } = new List<MedicalService>();
+    public Department Department { get; set; }
+    
+    public ICollection<DoctorService> DoctorServices { get; set; }
+    public ICollection<DoctorAvailability> Availabilities { get; set; }
+    public ICollection<Appointment> Appointments { get; set; }
 }

@@ -1,36 +1,28 @@
-namespace HastaneRandevuSistemi.Models;
-
-public enum AppointmentStatus
-{
-    Pending,
-    Approved,
-    Rejected,
-    Cancelled,
-    Completed
-}
+using System.ComponentModel.DataAnnotations;
 
 public class Appointment
 {
     public int Id { get; set; }
-
-    public DateTime StartTime { get; set; }
-
-    public DateTime EndTime { get; set; }
-
-    public decimal Price { get; set; }
-
-    public AppointmentStatus Status { get; set; }
-        = AppointmentStatus.Pending;
-
-    public int PatientId { get; set; }
-
-    public Patient Patient { get; set; } = null!;
-
+    
+    [Required]
+    public string PatientId { get; set; } // Hastanın Identity User ID'si
+    
     public int DoctorId { get; set; }
+    public Doctor Doctor { get; set; }
+    
+    public int ServiceId { get; set; }
+    public Service Service { get; set; }
+    
+    public DateTime AppointmentDate { get; set; } // Randevu Tarihi ve Saati
+    public int DurationMinutes { get; set; } // Hizmet Süresi
+    public decimal TotalPrice { get; set; } // Ücret
+    
+    public AppointmentStatus Status { get; set; } = AppointmentStatus.Pending; // Onay Durumu
+}
 
-    public Doctor Doctor { get; set; } = null!;
-
-    public int MedicalServiceId { get; set; }
-
-    public MedicalService MedicalService { get; set; } = null!;
+public enum AppointmentStatus
+{
+    Pending,   // Bekliyor
+    Approved,  // Onaylandı
+    Cancelled  // İptal Edildi
 }
