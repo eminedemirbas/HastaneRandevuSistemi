@@ -1,0 +1,13 @@
+C:\Users\Lenovo\Desktop\HastaneProjesi\HastaneRandevuSistemi\HospitalManagement.Core\bin\Debug\net8.0\HospitalManagement.Core.deps.json
+C:\Users\Lenovo\Desktop\HastaneProjesi\HastaneRandevuSistemi\HospitalManagement.Core\bin\Debug\net8.0\HospitalManagement.Core.dll
+C:\Users\Lenovo\Desktop\HastaneProjesi\HastaneRandevuSistemi\HospitalManagement.Core\bin\Debug\net8.0\HospitalManagement.Core.pdb
+C:\Users\Lenovo\Desktop\HastaneProjesi\HastaneRandevuSistemi\HospitalManagement.Core\obj\Debug\net8.0\HospitalManagement.Core.csproj.AssemblyReference.cache
+C:\Users\Lenovo\Desktop\HastaneProjesi\HastaneRandevuSistemi\HospitalManagement.Core\obj\Debug\net8.0\HospitalManagement.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Lenovo\Desktop\HastaneProjesi\HastaneRandevuSistemi\HospitalManagement.Core\obj\Debug\net8.0\HospitalManagement.Core.AssemblyInfoInputs.cache
+C:\Users\Lenovo\Desktop\HastaneProjesi\HastaneRandevuSistemi\HospitalManagement.Core\obj\Debug\net8.0\HospitalManagement.Core.AssemblyInfo.cs
+C:\Users\Lenovo\Desktop\HastaneProjesi\HastaneRandevuSistemi\HospitalManagement.Core\obj\Debug\net8.0\HospitalManagement.Core.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\Desktop\HastaneProjesi\HastaneRandevuSistemi\HospitalManagement.Core\obj\Debug\net8.0\HospitalManagement.Core.sourcelink.json
+C:\Users\Lenovo\Desktop\HastaneProjesi\HastaneRandevuSistemi\HospitalManagement.Core\obj\Debug\net8.0\HospitalManagement.Core.dll
+C:\Users\Lenovo\Desktop\HastaneProjesi\HastaneRandevuSistemi\HospitalManagement.Core\obj\Debug\net8.0\refint\HospitalManagement.Core.dll
+C:\Users\Lenovo\Desktop\HastaneProjesi\HastaneRandevuSistemi\HospitalManagement.Core\obj\Debug\net8.0\HospitalManagement.Core.pdb
+C:\Users\Lenovo\Desktop\HastaneProjesi\HastaneRandevuSistemi\HospitalManagement.Core\obj\Debug\net8.0\ref\HospitalManagement.Core.dll
