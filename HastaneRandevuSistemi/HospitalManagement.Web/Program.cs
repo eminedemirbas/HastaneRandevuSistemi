@@ -2,6 +2,8 @@ using HospitalManagement.Core.Entities;
 using HospitalManagement.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using HospitalManagement.Core.Interfaces;
+using HospitalManagement.Data.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +33,10 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = "/Account/AccessDenied";
 });
 
+
+
+// Dependency Injection: IAppointmentService kaydı
+builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -53,4 +59,18 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+// Seed Verilerini Çalıştırma
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        await DbSeeder.SeedRolesAndAdminAsync(services);
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "Veritabanına seed data eklenirken hata oluştu.");
+    }
+}
 app.Run();

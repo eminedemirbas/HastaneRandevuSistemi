@@ -1,0 +1,31 @@
+@model IEnumerable<HospitalManagement.Core.Entities.Hospital>
+@{
+    ViewData["Title"] = "Hastaneler";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Klinikler ve Hastaneler</h3>
+    <a asp-action="CreateHospital" class="btn btn-primary">+ Yeni Hastane Ekle</a>
+</div>
+
+<table class="table table-bordered table-striped shadow-sm">
+    <thead class="table-dark">
+        <tr>
+            <th>Hastane / Klinik Adı</th>
+            <th>Şehir</th>
+            <th>Telefon</th>
+            <th>Adres</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var h in Model)
+        {
+            <tr>
+                <td><strong>@h.Name</strong></td>
+                <td>@h.City</td>
+                <td>@h.PhoneNumber</td>
+                <td>@h.Address</td>
+            </tr>
+        }
+    </tbody>
+</table>

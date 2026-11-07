@@ -1,0 +1,47 @@
+@model IEnumerable<HospitalManagement.Core.Entities.Doctor>
+@{
+    ViewData["Title"] = "Doktorlar";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Doktor ve Sağlık Personeli Yönetimi</h3>
+    <a asp-action="CreateDoctor" class="btn btn-primary">+ Yeni Doktor Ekle</a>
+</div>
+
+<table class="table table-bordered table-striped shadow-sm">
+    <thead class="table-dark">
+        <tr>
+            <th>Unvan & Ad Soyad</th>
+            <th>Uzmanlık</th>
+            <th>Çalıştığı Kurum & Bölüm</th>
+            <th>Mesai Saatleri</th>
+            <th>İşlem</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var doc in Model)
+        {
+            <tr>
+                <td><strong>@doc.Title @doc.User.FullName</strong><br><small class="text-muted">@doc.User.Email</small></td>
+                <td>@doc.Specialty</td>
+                <td>@doc.HospitalDepartment.Hospital.Name - @doc.HospitalDepartment.Department.Name</td>
+                <td>
+                    @if (doc.WorkingHours.Any())
+                    {
+                        @foreach (var wh in doc.WorkingHours)
+                        {
+                            <span class="badge bg-secondary">@wh.DayOfWeek: @wh.StartTime.ToString(@"hh\:mm")-@wh.EndTime.ToString(@"hh\:mm")</span>
+                        }
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">Mesai Tanımlanmamış</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="AddWorkingHour" asp-route-doctorId="@doc.Id" class="btn btn-sm btn-outline-success">+ Mesai Tanımla</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

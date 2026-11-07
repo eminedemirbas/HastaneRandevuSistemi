@@ -1,0 +1,61 @@
+@model HospitalManagement.Web.ViewModels.DoctorCreateViewModel
+@{
+    ViewData["Title"] = "Doktor Kaydet";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white"><h5>Yeni Doktor / Sağlık Personeli Kaydı</h5></div>
+            <div class="card-body">
+                <form asp-action="CreateDoctor" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="Title" class="form-label"></label>
+                            <input asp-for="Title" class="form-control" placeholder="Dr. / Doç. Dr." />
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="FirstName" class="form-label"></label>
+                            <input asp-for="FirstName" class="form-control" required />
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="LastName" class="form-label"></label>
+                            <input asp-for="LastName" class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Email" class="form-label"></label>
+                            <input asp-for="Email" class="form-control" required />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Password" class="form-label"></label>
+                            <input asp-for="Password" class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Specialty" class="form-label"></label>
+                        <input asp-for="Specialty" class="form-control" placeholder="Örn: Kardiyolog, Radyoloji Uzmanı" required />
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="HospitalId" class="form-label"></label>
+                            <select asp-for="HospitalId" class="form-select" asp-items="ViewBag.Hospitals" required></select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="DepartmentId" class="form-label"></label>
+                            <select asp-for="DepartmentId" class="form-select" asp-items="ViewBag.Departments" required></select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100">Doktoru Sisteme Ekle</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,125 @@
+@model HospitalManagement.Web.ViewModels.AppointmentCreateViewModel
+@{
+    ViewData["Title"] = "Randevu Al";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Hızlı Randevu Al</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <!-- 1. Hastane ve Bölüm Seçimi -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label asp-for="HospitalId" class="form-label fw-bold"></label>
+                            <select id="hospitalSelect" asp-for="HospitalId" class="form-select" asp-items="ViewBag.Hospitals">
+                                <option value="">-- Hastane Seçin --</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="DepartmentId" class="form-label fw-bold"></label>
+                            <select id="departmentSelect" asp-for="DepartmentId" class="form-select" asp-items="ViewBag.Departments">
+                                <option value="">-- Bölüm Seçin --</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- 2. Hizmet ve Doktor Seçimi -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label asp-for="MedicalServiceId" class="form-label fw-bold"></label>
+                            <select id="serviceSelect" asp-for="MedicalServiceId" class="form-select">
+                                <option value="">-- Önce Bölüm Seçin --</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="DoctorId" class="form-label fw-bold"></label>
+                            <select id="doctorSelect" asp-for="DoctorId" class="form-select">
+                                <option value="">-- Önce Bölüm Seçin --</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- 3. Tarih ve Saat Seçimi -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label asp-for="AppointmentDate" class="form-label fw-bold"></label>
+                            <input id="dateSelect" asp-for="AppointmentDate" type="date" class="form-control" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="SelectedTime" class="form-label fw-bold">Müsait Saat</label>
+                            <select id="timeSelect" asp-for="SelectedTime" class="form-select">
+                                <option value="">-- Tarih ve Doktor Seçiniz --</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Notes" class="form-label"></label>
+                        <textarea asp-for="Notes" class="form-control" rows="2" placeholder="Şikayetinizi veya eklemek istediğinizi yazabilirsiniz..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100 py-2 fw-bold">Randevuyu Onayla</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    // Dinamik AJAX ile Doktor ve Hizmetleri yükleme
+    function loadDoctorsAndServices() {
+        var hospId = $('#hospitalSelect').val();
+        var deptId = $('#departmentSelect').val();
+
+        if (deptId) {
+            // Hizmetleri Çek
+            $.getJSON('/Appointment/GetServices', { departmentId: deptId }, function(data) {
+                var items = '<option value="">-- İşlem Seçin --</option>';
+                $.each(data, function(i, s) { items += '<option value="' + s.id + '">' + s.name + '</option>'; });
+                $('#serviceSelect').html(items);
+            });
+        }
+
+        if (hospId && deptId) {
+            // Doktorları Çek
+            $.getJSON('/Appointment/GetDoctors', { hospitalId: hospId, departmentId: deptId }, function(data) {
+                var items = '<option value="">-- Doktor Seçin --</option>';
+                $.each(data, function(i, d) { items += '<option value="' + d.id + '">' + d.fullName + '</option>'; });
+                $('#doctorSelect').html(items);
+            });
+        }
+    }
+
+    // Müsait Saat Dilimlerini (Slotları) Çek
+    function loadSlots() {
+        var docId = $('#doctorSelect').val();
+        var serviceId = $('#serviceSelect').val();
+        var date = $('#dateSelect').val();
+
+        if (docId && serviceId && date) {
+            $('#timeSelect').html('<option>Saatler yükleniyor...</option>');
+            $.getJSON('/Appointment/GetAvailableSlots', { doctorId: docId, serviceId: serviceId, date: date }, function(data) {
+                if (data.length === 0) {
+                    $('#timeSelect').html('<option value="">Bu tarihte müsait saat bulunamadı</option>');
+                } else {
+                    var items = '<option value="">-- Saat Seçin --</option>';
+                    $.each(data, function(i, slot) {
+                        items += '<option value="' + slot.value + '">' + slot.display + '</option>';
+                    });
+                    $('#timeSelect').html(items);
+                }
+            });
+        }
+    }
+
+    $('#hospitalSelect, #departmentSelect').change(loadDoctorsAndServices);
+    $('#doctorSelect, #serviceSelect, #dateSelect').change(loadSlots);
+</script>
+}

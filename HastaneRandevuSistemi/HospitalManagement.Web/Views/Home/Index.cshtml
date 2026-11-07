@@ -1,8 +1,82 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Hoş Geldiniz";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- Hero Karşılama Banner'ı -->
+<div class="hero-banner mb-5 text-center position-relative overflow-hidden">
+    <div class="container py-4 position-relative" style="z-index: 2;">
+        <span class="badge bg-white bg-opacity-25 text-white mb-3 px-3 py-2 rounded-pill">
+            <i class="bi bi-shield-check me-1"></i> Yeni Nesil Sağlık Yönetim Sistemi
+        </span>
+        <h1 class="display-4 fw-bold mb-3">Sağlığınız İçin Randevu Almanın En Kolay Yolu</h1>
+        <p class="lead col-lg-8 mx-auto mb-4 text-white-50">
+            Kliniklerimizdeki uzman doktorları inceleyin, işlem sürelerine göre hesaplanan çakışmasız slotlardan dilediğiniz saati seçin.
+        </p>
+
+        <div class="d-flex justify-content-center gap-3">
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <a asp-controller="Appointment" asp-action="Create" class="btn btn-light btn-lg text-primary fw-semibold shadow-sm px-4">
+                    <i class="bi bi-calendar-plus me-1"></i> Randevu Al
+                </a>
+                <a asp-controller="Appointment" asp-action="MyAppointments" class="btn btn-outline-light btn-lg px-4">
+                    <i class="bi bi-clock-history me-1"></i> Randevularım
+                </a>
+            }
+            else
+            {
+                <a asp-controller="Account" asp-action="Register" class="btn btn-light btn-lg text-primary fw-semibold shadow-sm px-4">
+                    <i class="bi bi-person-plus me-1"></i> Hemen Kayıt Ol
+                </a>
+                <a asp-controller="Account" asp-action="Login" class="btn btn-outline-light btn-lg px-4">
+                    <i class="bi bi-box-arrow-in-right me-1"></i> Giriş Yap
+                </a>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- Avantaj Kartları -->
+<div class="row g-4 mb-5">
+    <div class="col-md-4">
+        <div class="card h-100 p-4 border-0">
+            <div class="card-body">
+                <div class="feature-icon bg-primary bg-opacity-10 text-primary rounded-3 p-3 d-inline-flex mb-3">
+                    <i class="bi bi-buildings fs-2"></i>
+                </div>
+                <h4 class="fw-bold mb-2">Çok Şubeli Yapı</h4>
+                <p class="text-muted mb-0">
+                    Birden fazla hastane ve klinik şubesini tek bir platform üzerinden yönetin veya randevu alın.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card h-100 p-4 border-0">
+            <div class="card-body">
+                <div class="feature-icon bg-success bg-opacity-10 text-success rounded-3 p-3 d-inline-flex mb-3">
+                    <i class="bi bi-stopwatch fs-2"></i>
+                </div>
+                <h4 class="fw-bold mb-2">Akıllı Slot Hesaplama</h4>
+                <p class="text-muted mb-0">
+                    Genel muayene, ultrason veya radyoloji gibi her işlemin kendi süresine göre çakışmasız saatler üretilir.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card h-100 p-4 border-0">
+            <div class="card-body">
+                <div class="feature-icon bg-info bg-opacity-10 text-info rounded-3 p-3 d-inline-flex mb-3">
+                    <i class="bi bi-check2-circle fs-2"></i>
+                </div>
+                <h4 class="fw-bold mb-2">Doktor Onay Süreci</h4>
+                <p class="text-muted mb-0">
+                    Alınan her randevu ilgili doktorun ekranına düşer ve onaylandıktan sonra hastaya kesinleştirilir.
+                </p>
+            </div>
+        </div>
+    </div>
 </div>

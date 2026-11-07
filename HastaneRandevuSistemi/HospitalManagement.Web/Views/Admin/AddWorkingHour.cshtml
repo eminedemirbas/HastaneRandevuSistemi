@@ -1,0 +1,43 @@
+@model HospitalManagement.Web.ViewModels.WorkingHourViewModel
+@{
+    ViewData["Title"] = "Mesai Ekle";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h5>@Model.DoctorName için Mesai Belirle</h5>
+            </div>
+            <div class="card-body">
+                <form asp-action="AddWorkingHour" method="post">
+                    <input type="hidden" asp-for="DoctorId" />
+                    <input type="hidden" asp-for="DoctorName" />
+
+                    <div class="mb-3">
+                        <label asp-for="DayOfWeek" class="form-label">Çalışma Günü</label>
+                        <select asp-for="DayOfWeek" class="form-select" asp-items="Html.GetEnumSelectList<DayOfWeek>()"></select>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="StartTime" class="form-label">Başlangıç Saati</label>
+                            <input asp-for="StartTime" type="time" class="form-control" required />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="EndTime" class="form-label">Bitiş Saati</label>
+                            <input asp-for="EndTime" type="time" class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="SlotDurationMinutes" class="form-label">Randevu Aralığı (Dakika)</label>
+                        <input asp-for="SlotDurationMinutes" type="number" class="form-control" value="15" required />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Mesaiyi Kaydet</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

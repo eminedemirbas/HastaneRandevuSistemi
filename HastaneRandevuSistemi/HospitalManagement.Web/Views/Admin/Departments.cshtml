@@ -1,0 +1,43 @@
+@model IEnumerable<HospitalManagement.Core.Entities.Department>
+@{
+    ViewData["Title"] = "Bölümler ve Hizmetler";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Tıbbi Bölümler ve Sunulan Hizmetler</h3>
+    <a asp-action="CreateDepartment" class="btn btn-primary">+ Yeni Bölüm Ekle</a>
+</div>
+
+<div class="row">
+@foreach (var dept in Model)
+{
+    <div class="col-md-6 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">@dept.Name</h5>
+                <a asp-action="CreateService" asp-route-departmentId="@dept.Id" class="btn btn-sm btn-light">+ Hizmet Ekle</a>
+            </div>
+            <div class="card-body">
+                <p class="text-muted">@dept.Description</p>
+                <h6>Hizmet Listesi:</h6>
+                @if (dept.Services.Any())
+                {
+                    <ul class="list-group">
+                    @foreach (var s in dept.Services)
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            @s.Name 
+                            <span class="badge bg-primary rounded-pill">@s.DurationInMinutes dk | @s.Price.ToString("C2")</span>
+                        </li>
+                    }
+                    </ul>
+                }
+                else
+                {
+                    <span class="text-danger small">Tanımlı hizmet yok.</span>
+                }
+            </div>
+        </div>
+    </div>
+}
+</div>

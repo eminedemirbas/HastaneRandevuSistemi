@@ -1,0 +1,43 @@
+@{
+    ViewData["Title"] = "Admin Paneli";
+}
+
+<h2 class="mb-4">Yönetim Paneli</h2>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary mb-3 shadow">
+            <div class="card-body">
+                <h5 class="card-title">Hastaneler</h5>
+                <h2 class="card-text">@ViewBag.HospitalCount</h2>
+                <a asp-action="Hospitals" class="text-white text-decoration-none">Yönet &rarr;</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-success mb-3 shadow">
+            <div class="card-body">
+                <h5 class="card-title">Doktorlar</h5>
+                <h2 class="card-text">@ViewBag.DoctorCount</h2>
+                <a asp-action="Doctors" class="text-white text-decoration-none">Yönet &rarr;</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-warning text-dark mb-3 shadow">
+            <div class="card-body">
+                <h5 class="card-title text-dark">Bölümler & Hizmetler</h5>
+                <h2 class="card-text text-dark">@ViewBag.DepartmentCount</h2>
+                <a asp-action="Departments" class="text-dark text-decoration-none">Yönet &rarr;</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-info mb-3 shadow">
+            <div class="card-body">
+                <h5 class="card-title">Toplam Randevu</h5>
+                <h2 class="card-text">@ViewBag.AppointmentCount</h2>
+            </div>
+        </div>
+    </div>
+</div>

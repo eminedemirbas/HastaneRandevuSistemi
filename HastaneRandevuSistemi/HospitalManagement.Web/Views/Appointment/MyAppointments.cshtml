@@ -1,0 +1,70 @@
+@model IEnumerable<HospitalManagement.Core.Entities.Appointment>
+@using HospitalManagement.Core.Enums
+
+@{
+    ViewData["Title"] = "Randevularım";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>Randevularım</h3>
+    <a asp-action="Create" class="btn btn-primary">+ Yeni Randevu Al</a>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+<table class="table table-bordered table-striped shadow-sm">
+    <thead class="table-dark">
+        <tr>
+            <th>Tarih & Saat</th>
+            <th>Kurum & Bölüm</th>
+            <th>Doktor</th>
+            <th>İşlem / Hizmet</th>
+            <th>Süre</th>
+            <th>Ücret</th>
+            <th>Durum</th>
+            <th>İşlem</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><strong>@item.AppointmentDate.ToString("dd.MM.yyyy HH:mm")</strong></td>
+                <td>@item.Doctor.HospitalDepartment.Hospital.Name - @item.Doctor.HospitalDepartment.Department.Name</td>
+                <td>@item.Doctor.Title @item.Doctor.User.FullName</td>
+                <td>@item.MedicalService.Name</td>
+                <td>@((item.EndDate - item.AppointmentDate).TotalMinutes) dk</td>
+                <td>@item.Price.ToString("C2")</td>
+                <td>
+                    @switch (item.Status)
+                    {
+                        case AppointmentStatus.Pending:
+                            <span class="badge bg-warning text-dark">Onay Bekliyor</span>
+                            break;
+                        case AppointmentStatus.Approved:
+                            <span class="badge bg-success">Onaylandı</span>
+                            break;
+                        case AppointmentStatus.Cancelled:
+                            <span class="badge bg-danger">İptal Edildi</span>
+                            break;
+                        case AppointmentStatus.Completed:
+                            <span class="badge bg-secondary">Tamamlandı</span>
+                            break;
+                    }
+                </td>
+                <td>
+                    @if (item.Status == AppointmentStatus.Pending || item.Status == AppointmentStatus.Approved)
+                    {
+                        <form asp-action="Cancel" method="post" onsubmit="return confirm('Randevuyu iptal etmek istediğinize emin misiniz?');">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <button type="submit" class="btn btn-sm btn-outline-danger">İptal Et</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
